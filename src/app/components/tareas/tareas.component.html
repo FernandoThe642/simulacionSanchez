@@ -1,0 +1,15 @@
+<h2>Agregar Tarea</h2>
+
+<div class="formulario-contenedor">
+    <form (ngSubmit)="agregarTarea()">
+      <fieldset>
+        <label for="nombre-tarea">Nombre del tarea:</label>
+        <input type="text" [(ngModel)]="nombreTarea" name="nombreTarea" required>
+        <br>
+        <label for="descripcion-tarea">Descripción de la Tarea:</label>
+        <input type="text" [(ngModel)]="descripcionTarea" name="descripcionTarea" required>
+        <br>
+      </fieldset>
+      <button type="submit">Agregar tarea</button>
+    </form>
+  </div>
