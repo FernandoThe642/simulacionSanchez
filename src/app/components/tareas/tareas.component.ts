@@ -16,7 +16,7 @@ export class TareasComponent implements OnInit {
   nombreTarea: string = '';
   descripcionTarea: string = '';
   tareas: any[] = [];
-  tareaSeleccionada: any = null;
+  idTareaSeleccionada: number | null = null;
 
   constructor(private tareasService: TareaService) {}
 
@@ -31,9 +31,9 @@ export class TareasComponent implements OnInit {
   agregarTarea() {
     if (this.validarFormulario()) {
       const tarea = {
+        id: this.generarId(),
         nombreTarea: this.nombreTarea,
         descripcionTarea: this.descripcionTarea,
-        mostrarDetalles: false
       };
       this.tareasService.guardarTarea(tarea);
       this.cargarTareas();
@@ -46,8 +46,8 @@ export class TareasComponent implements OnInit {
     this.cargarTareas();
   }
 
-  toggleDetalles(tarea: any) {
-    this.tareaSeleccionada = tarea;  // Asigna la tarea seleccionada para mostrar detalles
+  toggleDetalles(id: number) {
+    this.idTareaSeleccionada = this.idTareaSeleccionada === id ? null : id;
   }
 
   validarFormulario(): boolean {
@@ -57,5 +57,9 @@ export class TareasComponent implements OnInit {
   limpiarFormulario() {
     this.nombreTarea = '';
     this.descripcionTarea = '';
+  }
+
+  private generarId(): number {
+    return this.tareas.length > 0 ? Math.max(...this.tareas.map(t => t.id)) + 1 : 1;
   }
 }
