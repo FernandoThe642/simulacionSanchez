@@ -1,22 +1,22 @@
-
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TareaService } from '../../services/tarea.service';
+import { DetalleTareaComponent } from '../detalle-tarea/detalle-tarea.component';
 
 @Component({
   selector: 'app-tareas',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, DetalleTareaComponent],
   templateUrl: './tareas.component.html',
-  styleUrl: './tareas.component.scss'
+  styleUrls: ['./tareas.component.scss']
 })
-export class TareasComponent implements OnInit{
-
+export class TareasComponent implements OnInit {
 
   nombreTarea: string = '';
   descripcionTarea: string = '';
   tareas: any[] = [];
+  tareaSeleccionada: any = null;
 
   constructor(private tareasService: TareaService) {}
 
@@ -24,12 +24,10 @@ export class TareasComponent implements OnInit{
     this.cargarTareas();
   }
 
-  // Cargar las tareas desde el servicio
   cargarTareas() {
     this.tareas = this.tareasService.obtenerTareas();
   }
 
-  // Agregar una nueva tarea
   agregarTarea() {
     if (this.validarFormulario()) {
       const tarea = {
@@ -38,28 +36,24 @@ export class TareasComponent implements OnInit{
         mostrarDetalles: false
       };
       this.tareasService.guardarTarea(tarea);
-      this.cargarTareas(); // Actualizar lista de tareas
-      this.limpiarFormulario(); // Limpiar los campos de entrada
+      this.cargarTareas();
+      this.limpiarFormulario();
     }
   }
 
-  // Eliminar una tarea
   eliminarTarea(id: number) {
     this.tareasService.eliminarTarea(id);
-    this.cargarTareas(); // Actualizar lista de tareas
+    this.cargarTareas();
   }
 
-  // Mostrar/ocultar detalles de una tarea
   toggleDetalles(tarea: any) {
-    tarea.mostrarDetalles = !tarea.mostrarDetalles;
+    this.tareaSeleccionada = tarea;  // Asigna la tarea seleccionada para mostrar detalles
   }
 
-  // Validar que los campos no estén vacíos
   validarFormulario(): boolean {
     return this.nombreTarea !== '' && this.descripcionTarea !== '';
   }
 
-  // Limpiar el formulario después de agregar una tarea
   limpiarFormulario() {
     this.nombreTarea = '';
     this.descripcionTarea = '';

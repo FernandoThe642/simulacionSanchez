@@ -26,9 +26,9 @@
           <button (click)="toggleDetalles(tarea)">Ver más</button>
           <button (click)="eliminarTarea(tarea.id)">Eliminar</button>
         </div>
-        <div *ngIf="tarea.mostrarDetalles" class="detalles-tarea">
-          <p><strong>ID de la tarea:</strong> {{ tarea.id }}</p>
-        </div>
       </li>
     </ul>
+
+    <!-- Mostrar detalles de la tarea seleccionada -->
+    <app-detalle-tarea *ngIf="tareaSeleccionada" [tarea]="tareaSeleccionada"></app-detalle-tarea>
 </div>

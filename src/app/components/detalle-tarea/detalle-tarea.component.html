@@ -1,1 +1,7 @@
-<p>detalle-tarea works!</p>
+<div *ngIf="tarea" class="detalle-tarea">
+    <h3>Detalles de la Tarea</h3>
+    <p><strong>Nombre:</strong> {{ tarea.nombreTarea }}</p>
+    <p><strong>Descripción:</strong> {{ tarea.descripcionTarea }}</p>
+    <p><strong>ID:</strong> {{ tarea.id }}</p>
+  </div>
+  
