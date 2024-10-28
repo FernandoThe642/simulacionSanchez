@@ -13,3 +13,22 @@
       <button type="submit">Agregar tarea</button>
     </form>
   </div>
+
+  <div class="contenedor-tareas">
+    <h2>Lista de Tareas</h2>
+    <ul id="lista-tareas">
+      <li *ngFor="let tarea of tareas">
+        <div class="informacion-tarea">
+          <h2>{{ tarea.nombreTarea }}</h2>
+        </div>
+        <div>
+          <p><strong>Descripción:</strong> {{ tarea.descripcionTarea }}</p>
+          <button (click)="toggleDetalles(tarea)">Ver más</button>
+          <button (click)="eliminarTarea(tarea.id)">Eliminar</button>
+        </div>
+        <div *ngIf="tarea.mostrarDetalles" class="detalles-tarea">
+          <p><strong>ID de la tarea:</strong> {{ tarea.id }}</p>
+        </div>
+      </li>
+    </ul>
+</div>
